@@ -66,7 +66,7 @@ __error__(char *pcFilename, uint32_t ui32Line)
 //
 //*****************************************************************************
 void
-UARTIntHandler(void)
+UART0_IRQHandler(void)
 {
     uint32_t ui32Status;
 
