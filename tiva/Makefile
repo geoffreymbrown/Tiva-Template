@@ -1,5 +1,7 @@
+all: html
+
 html:
 	doxygen 
 
 clean:
-	rm -r html
+	rm -rf html 

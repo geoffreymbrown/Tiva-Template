@@ -1,4 +1,4 @@
-SUBDIRS= Tiva Demo
+SUBDIRS= Build Tiva Demo
 
 .PHONY:  clean 
 

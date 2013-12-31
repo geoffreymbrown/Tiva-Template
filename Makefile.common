@@ -32,11 +32,13 @@ STARTUP=  startup_lm4f.o
 
 FULLASSERT = -DUSE_FULL_ASSERT 
 
-LDFLAGS+= -T$(LDSCRIPT) -gc-sections
+LDFLAGS+= -T$(LDSCRIPT) -gc-sections -L$(TEMPLATEROOT)/Build 
 CFLAGS+= -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 CFLAGS+= -ffunction-sections -fdata-sections -MD -std=c99 -Wall
-CFLAGS+= -D$(PTYPE)
+CFLAGS+= -D$(PTYPE) -DTARGET_IS_BLIZZARD_RB1 -Dgcc
 CFLAGS+= -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
+
+LDLIBS+= -ldriver
 
 # Build executable 
 
