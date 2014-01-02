@@ -5,6 +5,7 @@ ELF=$(notdir $(CURDIR)).elf
 # Tool path
 
 TOOLROOT=/l/arm/arm-none-eabi/bin
+PART=TM4C123GH6PM
 
 # Library path
 
@@ -13,7 +14,7 @@ LIBROOT=$(TEMPLATEROOT)/tiva
 # Tools
 
 CC=$(TOOLROOT)/arm-none-eabi-gcc
-LD=$(TOOLROOT)/arm-none-eabi-gcc
+LD=$(TOOLROOT)/arm-none-eabi-ld
 AR=$(TOOLROOT)/arm-none-eabi-ar
 AS=$(TOOLROOT)/arm-none-eabi-as
 
@@ -22,9 +23,6 @@ AS=$(TOOLROOT)/arm-none-eabi-as
 vpath %.c $(TEMPLATEROOT)
 vpath %.c $(LIBROOT)/driverlib
 
-#  Processor specific
-
-PTYPE = PART_TM4C123GH6PM
 LDSCRIPT = $(TEMPLATEROOT)/lm4f.ld 
 STARTUP=  startup_lm4f.o 
 
@@ -32,13 +30,35 @@ STARTUP=  startup_lm4f.o
 
 FULLASSERT = -DUSE_FULL_ASSERT 
 
-LDFLAGS+= -T$(LDSCRIPT) -gc-sections -L$(TEMPLATEROOT)/Build 
-CFLAGS+= -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
-CFLAGS+= -ffunction-sections -fdata-sections -MD -std=c99 -Wall
-CFLAGS+= -D$(PTYPE) -DTARGET_IS_BLIZZARD_RB1 -Dgcc
-CFLAGS+= -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
+CPU=-mcpu=cortex-m4
+FPU=-mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 
-LDLIBS+= -ldriver
+AFLAGS+=-mthumb \
+       ${CPU}  \
+       ${FPU}  \
+       -MD
+
+CFLAGS+=-mthumb             \
+       ${CPU}              \
+       ${FPU}              \
+       -ffunction-sections \
+       -fdata-sections     \
+       -MD                 \
+       -std=c99            \
+       -Wall               \
+       -pedantic           \
+       -DPART_${PART} \
+       -c  \
+       -Dgcc \
+       -DTARGET_IS_BLIZZARD_RB1	 \
+       -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
+
+LIBGCC:=${shell ${CC} ${CFLAGS} -print-libgcc-file-name}
+LIBC:=${shell ${CC} ${CFLAGS} -print-file-name=libc.a}
+LIBM:=${shell ${CC} ${CFLAGS} -print-file-name=libm.a}
+
+LDFLAGS+= -T$(LDSCRIPT) -gc-sections -L$(TEMPLATEROOT)/Build 
+LDLIBS+= -ldriver '${LIBM}' '${LIBC}' '${LIBGCC}'
 
 # Build executable 
 
