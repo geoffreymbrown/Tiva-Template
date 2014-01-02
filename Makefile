@@ -8,7 +8,7 @@ all:   startup_lm4f.c
 startup_lm4f.c : startup_generator
 	./startup_generator > startup_lm4f.c
 
-startup_generator:
+startup_generator: startup_generator.c
 	gcc -o startup_generator startup_generator.c
 
 clean:

@@ -21,7 +21,6 @@ AS=$(TOOLROOT)/arm-none-eabi-as
 # Code Paths
 
 vpath %.c $(TEMPLATEROOT)
-vpath %.c $(LIBROOT)/driverlib
 
 LDSCRIPT= $(TEMPLATEROOT)/lm4f.ld 
 INCLUDES+= -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
@@ -60,7 +59,7 @@ LIBC:=${shell ${CC} ${CFLAGS} -print-file-name=libc.a}
 LIBM:=${shell ${CC} ${CFLAGS} -print-file-name=libm.a}
 
 LDFLAGS+= -T$(LDSCRIPT) -gc-sections -L$(TEMPLATEROOT)/Build 
-LDLIBS+= -ldriver '${LIBM}' '${LIBC}' '${LIBGCC}'
+LDLIBS+= -lusb -ldriver '${LIBM}' '${LIBC}' '${LIBGCC}'
 
 # Build executable 
 
@@ -76,7 +75,7 @@ $(ELF) : $(OBJS)
 	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
 clean:
-	rm -f $(OBJS) $(OBJS:.o=.d) $(ELF) $(STARTUP) $(CLEANOTHER)
+	rm -f $(OBJS) $(OBJS:.o=.d) $(ELF) $(CLEANOTHER)
 
 debug: $(ELF)
 	arm-none-eabi-gdb $(ELF)

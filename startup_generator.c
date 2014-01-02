@@ -16,7 +16,7 @@ const char *Vectors [] =  {
   [12]  = "DebugMon_Handler",
   /* reserved */
   [14]  = "PendSV_Handler",
-  [15]  = "SysTick_Handler",
+  [15]  = "SysTickIntHandler",  // changed to ti naming "SysTick_Handler",
   [16]  = "GPIOA_IRQHandler",
   [17]  = "GPIOB_IRQHandler",
   [18]  = "GPIOC_IRQHandler",
@@ -60,7 +60,7 @@ const char *Vectors [] =  {
   [56]  = "CAN1_IRQHandler",
   /* reserved 57-58 */
   [59]  = "Hibernation_IRQHandler",
-  [60]  = "USB_IRQHandler",
+  [60]  = "USB0DeviceIntHandler",  // changed to match Tiva driver lib
   [61]  = "PWM0_GEN3_IRQHandler",
   [62]  = "uDMA_Software_IRQHandler",
   [63]  = "uDMA_Error_IRQHandler",
@@ -150,7 +150,6 @@ char *header =
   "  while(1) {}\n"
   "}\n\n"
   "/* Vector Table */\n\n";
-
 
 char *mid = 
   "\n\n\n__attribute__ ((section(\".isr_vector\")))\n\n"
