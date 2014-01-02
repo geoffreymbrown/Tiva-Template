@@ -23,12 +23,11 @@ AS=$(TOOLROOT)/arm-none-eabi-as
 vpath %.c $(TEMPLATEROOT)
 vpath %.c $(LIBROOT)/driverlib
 
-LDSCRIPT = $(TEMPLATEROOT)/lm4f.ld 
-STARTUP=  startup_lm4f.o 
+LDSCRIPT= $(TEMPLATEROOT)/lm4f.ld 
+OBJS+=  startup_lm4f.o 
+INCLUDES+= -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
 
 # Compilation Flags
-
-FULLASSERT = -DUSE_FULL_ASSERT 
 
 CPU=-mcpu=cortex-m4
 FPU=-mfpu=fpv4-sp-d16 -mfloat-abi=softfp
@@ -38,7 +37,7 @@ AFLAGS+=-mthumb \
        ${FPU}  \
        -MD
 
-CFLAGS+=-mthumb             \
+CFLAGS+=-mthumb            \
        ${CPU}              \
        ${FPU}              \
        -ffunction-sections \
@@ -47,11 +46,11 @@ CFLAGS+=-mthumb             \
        -std=c99            \
        -Wall               \
        -pedantic           \
-       -DPART_${PART} \
-       -c  \
-       -Dgcc \
-       -DTARGET_IS_BLIZZARD_RB1	 \
-       -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
+       -DPART_${PART}      \
+       -c                  \
+       -Dgcc               \
+       -DTARGET_IS_BLIZZARD_RB1	
+
 
 LIBGCC:=${shell ${CC} ${CFLAGS} -print-libgcc-file-name}
 LIBC:=${shell ${CC} ${CFLAGS} -print-file-name=libc.a}
@@ -68,11 +67,11 @@ $(ELF) : $(OBJS)
 # compile and generate dependency info
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
-	$(CC) -MM $(CFLAGS) $< > $*.d
+	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
+	$(CC) -MM $(CFLAGS) $(INCLUDES) $< > $*.d
 
 %.o: %.s
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
 clean:
 	rm -f $(OBJS) $(OBJS:.o=.d) $(ELF) $(STARTUP) $(CLEANOTHER)

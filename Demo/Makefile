@@ -7,7 +7,7 @@ ASFLAGS = -g
 
 # object files
 
-OBJS=  $(STARTUP) blinky.o
+OBJS= blinky.o
 
 # include common make file
 

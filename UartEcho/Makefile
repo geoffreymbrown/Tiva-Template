@@ -7,7 +7,7 @@ ASFLAGS = -g
 
 # object files
 
-OBJS=  $(STARTUP) uart_echo.o #gpio.o interrupt.o cpu.o
+OBJS=  uart_echo.o 
 
 # include common make file
 
