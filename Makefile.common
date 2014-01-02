@@ -24,8 +24,11 @@ vpath %.c $(TEMPLATEROOT)
 vpath %.c $(LIBROOT)/driverlib
 
 LDSCRIPT= $(TEMPLATEROOT)/lm4f.ld 
-OBJS+=  startup_lm4f.o 
 INCLUDES+= -I$(TEMPLATEROOT) -I$(LIBROOT) -I.
+
+# start up file
+
+OBJS+=  startup_lm4f.o 
 
 # Compilation Flags
 
@@ -68,7 +71,6 @@ $(ELF) : $(OBJS)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
-	$(CC) -MM $(CFLAGS) $(INCLUDES) $< > $*.d
 
 %.o: %.s
 	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
