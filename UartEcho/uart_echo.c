@@ -65,8 +65,8 @@ __error__(char *pcFilename, uint32_t ui32Line)
 // The UART interrupt handler.
 //
 //*****************************************************************************
-void
-UART0_IRQHandler(void)
+//UART0_IRQHandler(void)
+void UARTStdioIntHandler(void)
 {
     uint32_t ui32Status;
 
