@@ -1,0 +1,1 @@
+Example of using cli command interpreter included with Tiva utilities.
