@@ -1,4 +1,4 @@
-SUBDIRS= Build Tiva Demo UartEcho
+SUBDIRS= Build Tiva Demo UartEcho CLI
 
 .PHONY:  clean 
 
