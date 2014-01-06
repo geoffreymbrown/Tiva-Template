@@ -1,4 +1,4 @@
-SUBDIRS= Build Tiva Demo UartEcho CLI
+SUBDIRS= Build Tiva Demo UartEcho CLI eeprom
 
 .PHONY:  clean 
 
