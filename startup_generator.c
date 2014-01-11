@@ -26,7 +26,6 @@ const char *Vectors [] =  {
   [22]  = "UART1_IRQHandler",
   [23]  = "SSI0_IRQHandler",
   [24]  = "I2C0_IRQHandler",
-  [24]  = "I2C0_IRQHandler",
   [25]  = "PWM0_Fault_IRQHandler",
   [26]  = "PWM0_GEN0_IRQHandler",
   [27]  = "PWM0_GEN1_IRQHandler",
@@ -180,7 +179,7 @@ void PrintVectorName (const char *s){
   }
 }
 
-main(){
+int main(){
   int i;
 
   fprintf(stdout,"%s",header);

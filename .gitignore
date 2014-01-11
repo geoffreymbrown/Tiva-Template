@@ -1,0 +1,9 @@
+*.o
+*.d
+*~
+*.html
+*.elf
+*.a
+startup_generator
+startup_lm4f.c
+tiva/html
