@@ -32,3 +32,6 @@ Debugging:
 
     (1) openocd -f lm4f.cfg
     (2) arm-none-eabi-gdb -x gdbinit Demo/Demo.elf
+
+See this link for getting openocd working on OS X
+http://forum.stellarisiti.com/topic/1741-using-gdb-and-openocd-to-remote-debug-tivastellaris-on-a-mac-os/
